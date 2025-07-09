@@ -358,6 +358,12 @@ latex_documents = [
      'Termos Gerais de Venda Odoo', '', 'howto'),
 ]
 
+# Build a complete PDF of the documentation from the ``index`` page
+# to provide an offline version of all guides.
+latex_documents.append(
+    ('index', 'odoo_documentation.tex', 'Odoo Documentation', 'Odoo', 'manual')
+)
+
 # List of languages that have legal translations (excluding EN). The keys must be in
 # `languages_names`. These translations will have a link to their versions of the legal
 # contracts, instead of the default EN one. The main legal documents are not part of the

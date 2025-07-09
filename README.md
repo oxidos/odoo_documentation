@@ -16,7 +16,9 @@
 1. In a terminal, navigate to the root directory of the documentation and build it `make`.
    Additional commands are available with `make help`.
 2. Open the file `documentation/_build/html/index.html` in your web browser.
-3. See [this guide](https://www.odoo.com/documentation/latest/contributing/documentation.html)
+3. To generate a PDF version of the documentation, run `make latexpdf`.
+   The resulting file is copied to `documentation/_build/html/`.
+4. See [this guide](https://www.odoo.com/documentation/latest/contributing/documentation.html)
    for more detailed instructions.
 
 Optional: place your local copy of the `odoo/odoo` and `odoo/upgrade-util` repositories in
