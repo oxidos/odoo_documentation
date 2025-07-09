@@ -1,4 +1,4 @@
-# Makefile for Sphinx documentation
+	# Makefile for Sphinx documentation
 
 # Pass WORKERS=1 for single-worker build
 ifndef WORKERS
@@ -35,7 +35,7 @@ endif
 
 #=== Standard rules ===#
 
-.PHONY: all help clean html latexpdf gettext fast static test review
+.PHONY: all help clean html latexpdf pdf gettext fast static test pdf-test review
 
 # In first position to build the documentation from scratch by default
 all: html
@@ -67,6 +67,13 @@ latexpdf:
 	cp $(BUILD_DIR)/latex/*.pdf $(BUILD_DIR)/html/
 	@echo "Build finished."
 
+pdf:
+	@echo "Starting single PDF build..."
+	$(SPHINX_BUILD) -c pdf_conf -b latex $(SPHINXOPTS) $(SOURCE_DIR) $(BUILD_DIR)/single_latex
+	$(MAKE) -C $(BUILD_DIR)/single_latex
+	cp $(BUILD_DIR)/single_latex/odoo_documentation.pdf $(BUILD_DIR)/
+	@echo "Build finished."
+
 gettext:
 	@echo "Generating translatable files..."
 	$(SPHINX_BUILD) -c $(CONFIG_DIR) -b gettext $(SOURCE_DIR) locale/sources
@@ -90,6 +97,9 @@ static: $(HTML_BUILD_DIR)/_static/style.css
 # Called by runbot for the ci/documentation_guideline check.
 test:
 	@python tests/main.py $(SOURCE_DIR)/administration $(SOURCE_DIR)/applications $(SOURCE_DIR)/contributing $(SOURCE_DIR)/developer redirects
+
+pdf-test:
+	@python tests/pdf_test.py
 
 # Similar as `test`, but called only manually by content reviewers to trigger extra checks.
 review:
